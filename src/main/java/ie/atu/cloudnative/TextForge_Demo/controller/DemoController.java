@@ -13,13 +13,14 @@ import org.springframework.web.client.RestTemplate;
 public class DemoController {
     @GetMapping("/")
     public String index(Model model) {
-        model.addAttribute("request", new TextRequest());
+        model.addAttribute("request", new TextRequest("yup", "none"));
         return "index";
     }
 
     @PostMapping("/process")
     public String process(@ModelAttribute TextRequest request, Model model) {
         String mockResult = "The external API would have " + request.getAction() + "ed: " + request.getContent();
+        model.addAttribute("request", new TextRequest("yup", "none"));
         model.addAttribute("result", mockResult);
         return "index";
     }

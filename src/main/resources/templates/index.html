@@ -1,25 +1,38 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Text Processor</title>
+    <title>TextForge Demo</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<h2>Text Tool</h2>
 
-<form th:action="@{/process}" th:object="${request}" method="post">
-    <textarea th:field="*{content}" placeholder="Enter text..."></textarea>
+<div class="container">
+    <h2>TextForge Demo</h2>
 
-    <select th:field="*{action}">
-        <option value="translate">Translate</option>
-        <option value="analyze">Sentiment Analysis</option>
-    </select>
+    <form th:action="@{/process}" th:object="${request}" method="post">
 
-    <button type="submit">Process</button>
-</form>
+        <div class="form-group">
+            <label for="action">Select Action:</label>
+            <select th:field="*{action}" id="action">
+                <option value="stemming">Stemming</option>
+                <option value="uppercase">Uppercase</option>
+                <option value="reverse">Reverse</option>
+            </select>
+        </div>
 
-<div th:if="${result != null}">
-    <h3>Output:</h3>
-    <p th:text="${result}"></p>
+        <div class="form-group">
+            <label for="content">Your Text:</label>
+            <textarea th:field="*{content}" id="content" placeholder="Enter text here..."></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn">Process</button>
+    </form>
+
+    <div class="result-box" th:if="${result != null}">
+        <strong>Output:</strong>
+        <p class="result-text" th:text="${result}"></p>
+    </div>
 </div>
+
 </body>
 </html>
