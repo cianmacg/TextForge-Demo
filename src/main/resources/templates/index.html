@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Text Processor</title>
+</head>
+<body>
+<h2>Text Tool</h2>
+
+<form th:action="@{/process}" th:object="${request}" method="post">
+    <textarea th:field="*{content}" placeholder="Enter text..."></textarea>
+
+    <select th:field="*{action}">
+        <option value="translate">Translate</option>
+        <option value="analyze">Sentiment Analysis</option>
+    </select>
+
+    <button type="submit">Process</button>
+</form>
+
+<div th:if="${result != null}">
+    <h3>Output:</h3>
+    <p th:text="${result}"></p>
+</div>
+</body>
+</html>
