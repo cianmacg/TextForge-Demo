@@ -22,6 +22,7 @@ dependencies {
 	// Core Web and UI
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.apache.httpcomponents.client5:httpclient5'
 
 	// Monitoring and Dev Tools
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
