@@ -1,6 +1,5 @@
 package ie.atu.cloudnative.TextForge_Demo.controller;
 
-import ie.atu.cloudnative.TextForge_Demo.service.ApiService;
 import org.springframework.http.*;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Controller;
@@ -17,7 +16,7 @@ import java.util.Map;
 
 @Controller
 public class DemoController {
-    private final String apiPath = "http://localhost:8081/";
+    private final String apiPath = "http://textforge-api:8081/";
     private final RestTemplate restTemplate = new RestTemplate(new HttpComponentsClientHttpRequestFactory());
 
     @GetMapping("/")
