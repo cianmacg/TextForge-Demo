@@ -16,7 +16,7 @@ import java.util.Map;
 
 @Controller
 public class DemoController {
-    private final String apiPath = "http://textforge-api:8081/";
+    private final String apiPath = "http://api-service:8081/";
     private final RestTemplate restTemplate = new RestTemplate(new HttpComponentsClientHttpRequestFactory());
 
     @GetMapping("/")
@@ -33,7 +33,7 @@ public class DemoController {
             case "stem" -> stem(request.getContent(), model);
             case "encode" -> encode(request.getContent(), model);
             case "decode" -> decode(request.getContent(), model);
-            default -> System.out.println("Something else!");
+            default -> System.out.println("Invalid action requested: " + request.getAction());
         };
 
         model.addAttribute("request", request);

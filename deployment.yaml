@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: textforge-api
+  template:
+    metadata:
+      labels:
+        app: textforge-api
+    spec:
+      imagePullSecrets:
+        - name: ghcr-auth
+      containers:
+        - name: api
+          image: ghcr.io/cianmacg/textforge-api:latest
+          ports:
+            - containerPort: 8081
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-service
+spec:
+  selector:
+    app: textforge-api
+  ports:
+    - protocol: TCP
+      port: 8081
+      targetPort: 8081
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: textforge-demo
+  template:
+    metadata:
+      labels:
+        app: textforge-demo
+    spec:
+      imagePullSecrets:
+        - name: ghcr-auth
+      containers:
+        - name: web
+          image: ghcr.io/cianmacg/textforge-demo:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: API_URL
+              value: "http://api-service:8081"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: textforge-demo
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
