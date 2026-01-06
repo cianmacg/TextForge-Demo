@@ -42,7 +42,7 @@ public class DemoController {
 
     private void stem(String text, Model model) {
         String path = apiPath.concat("stem/lovins");
-        HttpEntity<Map<String, String>> entity = buildUri(text);
+        HttpEntity<Map<String, String>> entity = buildUri(text.replace("\\p{Punct}", ""));
 
         try {
             ResponseEntity<String[]> response = restTemplate.exchange(
