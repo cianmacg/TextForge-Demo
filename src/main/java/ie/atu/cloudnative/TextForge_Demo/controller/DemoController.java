@@ -28,7 +28,6 @@ public class DemoController {
     @PostMapping("/process")
     public String process(@ModelAttribute TextRequest request, Model model) {
 
-        System.out.println(request.getAction() + " " + request.getContent());
         switch (request.getAction()) {
             case "stem" -> stem(request.getContent(), model);
             case "encode" -> encode(request.getContent(), model);
@@ -42,7 +41,9 @@ public class DemoController {
 
     private void stem(String text, Model model) {
         String path = apiPath.concat("stem/lovins");
-        HttpEntity<Map<String, String>> entity = buildUri(text.replace("\\p{Punct}", ""));
+        String reducedText = text.replaceAll("\\p{P}", "");
+
+        HttpEntity<Map<String, String>> entity = buildUri(reducedText);
 
         try {
             ResponseEntity<String[]> response = restTemplate.exchange(
@@ -71,7 +72,6 @@ public class DemoController {
                     entity,
                     String[].class
             );
-            System.out.println(Arrays.stream(response.getBody()).toArray());
             String combinedResult = String.join(" ", response.getBody());
             model.addAttribute("result", combinedResult);
 
@@ -105,7 +105,6 @@ public class DemoController {
                     entity,
                     String.class
             );
-            System.out.println(response.getBody().toString());
             model.addAttribute("result", response.getBody());
 
         } catch (Exception e) {
