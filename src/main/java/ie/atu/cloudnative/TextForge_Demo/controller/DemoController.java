@@ -21,7 +21,7 @@ public class DemoController {
 
     @GetMapping("/")
     public String index(Model model) {
-        model.addAttribute("request", new TextRequest("yup", "none"));
+        model.addAttribute("request", new TextRequest("Sample text for stemming, encoding, or decoding...", "none"));
         return "index";
     }
 
