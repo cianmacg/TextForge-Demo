@@ -89,7 +89,11 @@ public class DemoController {
                 .mapToInt(Integer::parseInt)     // Convert to int
                 .toArray();
 
-        System.out.println("1");
+        if(tokens.length == 0) {
+            model.addAttribute("result", "Input Error: No tokens to decode.");
+            return;
+        }
+
         Map<String, int[]> body = new HashMap<>();
         body.put("tokens", tokens);
 
