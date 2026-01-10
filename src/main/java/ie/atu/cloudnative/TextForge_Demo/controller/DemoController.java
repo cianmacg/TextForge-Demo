@@ -101,7 +101,6 @@ public class DemoController {
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         HttpEntity<Map<String, int[]>> entity = new HttpEntity<>(body, headers);
-        System.out.println("2");
         try {
             ResponseEntity<String> response = restTemplate.exchange(
                     path,
