@@ -1,5 +1,6 @@
 package ie.atu.cloudnative.TextForge_Demo.controller;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Controller;
@@ -16,8 +17,13 @@ import java.util.Map;
 
 @Controller
 public class DemoController {
-    private final String apiPath = "http://api-service:8081/";
-    private final RestTemplate restTemplate = new RestTemplate(new HttpComponentsClientHttpRequestFactory());
+    private final String apiPath;
+    private final RestTemplate restTemplate;
+
+    public DemoController(@Value("${api.service.url}") String apiPath) {
+        this.apiPath = apiPath.endsWith("/") ? apiPath : apiPath + "/";
+        this.restTemplate = new RestTemplate(new HttpComponentsClientHttpRequestFactory());
+    }
 
     @GetMapping("/")
     public String index(Model model) {
